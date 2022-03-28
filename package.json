@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
+    "element-ui": "^2.15.6",
+    "pug-cli": "^1.0.0-alpha6",
     "vue": "^2.6.14"
   },
   "devDependencies": {
@@ -39,5 +41,9 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "description": "## Project setup ``` yarn install ```",
+  "main": "babel.config.js",
+  "author": "",
+  "license": "ISC"
 }
