@@ -1,0 +1,33 @@
+body {
+  background-color: rgb(184, 243, 184);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#app {
+  display: flex;
+  align-content:center;
+
+}
+.main {
+  display: flex;
+  margin: 0 auto;
+}
+
+.container {
+  
+  max-width: 800px;
+  width: 800px;
+  background-color: #fff;
+  border-radius: 15px;
+  margin: 20px ;
+  height: 500px;
+  text-align: center;
+  box-shadow: 4px 10px 16px 2px rgba(99, 116, 96, 0.879);
+}
+
+.card {
+  border: 1px solid rgb(230, 165, 121);
+  border-radius: 20px;
+}
