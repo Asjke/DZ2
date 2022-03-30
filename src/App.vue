@@ -4,30 +4,39 @@
       .container
         h2 Формы
         Form(@submit.prevent="submitForm")  
-          el-select(
-            v-model="typeBlock.name"
+
+          el-select.card(
+            v-model="typeBlock"
             placeholder="Выберите из списка"
           )
             el-option(
-              v-for="typeBlock.value of typeBlocks"
+              v-for="item of typeBlocks"
               :key="item.value"
               :label="item.label"
               :value="item.value"
             )
 
-          el-input(
+          el-input.card(
             type="textarea"
             :rows="10"
             v-model="textNews"
+            :placeholder= "placeholderInput(typeBlock)"
           )
-          el-button.prevent(type="success" native-type="submit") Добавить блок
+          el-button.prevent(
+            type="success" 
+            native-type="submit"
+            :disabled="!typeBlock.length || !textNews.length "
+            ) Добавить блок
+      
       .container
         h2 Блок новостей
           
-        span(v-for="item of newsBlock"
-        :key="item"
+        span(
+        v-for="(item, $index) of newses"
+        :key="$index"
         v-html="htmlfoo(item)"
-        )
+        ) 
+        p(v-if="!newses.length") Пока новостей нет
   </template>
 
 <script>
@@ -37,41 +46,79 @@ export default {
       textNews: '',
       typeBlock: '',
       typeBlocks: [
-        {label: "Заголовок", value: "title"},
-        {label: "Подзаголовок", value: "subtitle"},
+        {label: "Заголовок", value: "tittle"},
+        {label: "Подзаголовок", value: "subtittle"},
         {label: "Изображение", value: "image"},
         {label: "Текст", value: "text"}
       ],
-      newsBlock: [
-        {}
-      ],
-      newsTypeBlock: []
+      newses: [],
+      news: {
+        name: '',
+        type: ''
+      }
     }
   },
   methods: {
     submitForm() {
-      // console.log(this.textNews)
-      // console.log(this.typeBlock)
-  
-      // this.newsTypeBlock.push(this.typeBlock)
-      // console.log(this.newsTypeBlock)
-      // this.textNews = ''
+      this.news.name = this.textNews
+      this.news.type = this.typeBlock
+      this.newses.push(this.news)
 
+      this.news = {
+        name: '',
+        type: ''
+      }
 
+      console.log(this.newses)
+      this.textNews = ''
+      this.typeBlock = ''
+      
     },
-    addNews () {
-
-    },
-    htmlfoo() {
-      // if 
-      // console.log(el.value)
-      // return `<h1>${el}</h1> `
-
+    htmlfoo(el) {
+    if (el.type === "tittle") {
+      return `<h1>${el.name}</h1> `;
+    } else
+    if (el.type === "subtittle") {
+      return `<h2>${el.name}</h2> `;
+    } else 
+    if (el.type === "image") {
+      return `<img src=${el.name}> `;
+    } else {
+      return `<p>${el.name}</p> `
     }
-  }
 
+   },
+   placeholderInput (el) {
+       if (el === "tittle") {
+         return "Введите заголовок"
+     } else 
+     if (el === "subtittle") {
+       return "Введите подзаголовок"
+     } else 
+     if (el === "image") {
+       return "Вставьте url картинки"
+     } else if (el === "text") {
+       return "Введите текст"
+     }
+   }
+  }
 }
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <style scoped>
 .container {
