@@ -20,7 +20,7 @@
             type="textarea"
             :rows="10"
             v-model="textNews"
-            :placeholder= "placeholderInput(typeBlock)"
+            :placeholder="placeholder"
           )
           el-button.prevent(
             type="success" 
@@ -46,6 +46,7 @@ import BlockImage from './components/block-image.vue'
 import BlockTittle from './components/block-tittle.vue'
 import BlockText from './components/block-text.vue'
 import BlockSubtittle from './components/block-subtittle.vue'
+
 export default {
   components: {
     BlockImage,
@@ -64,6 +65,13 @@ export default {
         {label: "Изображение", value: "image"},
         {label: "Текст", value: "text"}
       ],
+      placeholder: '',
+      placeholders: {
+        tittle: "Введите заголовок",
+        subtittle: "Введите подзаголовок",
+        image: "Вставьте url картинки", 
+        text: "Введите текст", 
+      },
       newses: [],
       news: {
         name: '',
@@ -71,6 +79,12 @@ export default {
       }
     }
   },
+  watch: {
+    typeBlock (value) {
+      this.placeholder = this.placeholders[value]
+    }
+  },
+
   methods: {
     submitForm() {
       this.news.name = this.textNews
@@ -81,41 +95,15 @@ export default {
         name: '',
         type: ''
       }
-
-      console.log(this.newses)
       this.textNews = ''
       this.typeBlock = ''
-      
-    },
-    htmlfoo(el) {
-    if (el.type === "tittle") {
-      return `<h1>${el.name}</h1> `;
-    } else
-    if (el.type === "subtittle") {
-      return `<h2>${el.name}</h2> `;
-    } else 
-    if (el.type === "image") {
-      return `<img src=${el.name}> `;
-    } else {
-      return `<p>${el.name}</p> `
     }
 
-   },
-   placeholderInput (el) {
-    if (el === "tittle") {
-      return "Введите заголовок"
-     } else 
-     if (el === "subtittle") {
-       return "Введите подзаголовок"
-     } else 
-     if (el === "image") {
-       return "Вставьте url картинки"
-     } else if (el === "text") {
-       return "Введите текст"
-     }
-   }
   }
-}
+}  
+
+
+
 </script>
 
 <style scoped>
