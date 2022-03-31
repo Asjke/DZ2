@@ -31,16 +31,29 @@
       .container
         h2 Блок новостей
           
-        span(
-        v-for="(item, $index) of newses"
-        :key="$index"
-        v-html="htmlfoo(item)"
-        ) 
-        p(v-if="!newses.length") Пока новостей нет
+        template
+          component(
+            v-for="news in newses"
+            :key="news.value"
+            :is="'block-' + news.type"
+            :content="news.name"
+          )
+
   </template>
 
 <script>
+import BlockImage from './components/block-image.vue'
+import BlockTittle from './components/block-tittle.vue'
+import BlockText from './components/block-text.vue'
+import BlockSubtittle from './components/block-subtittle.vue'
 export default {
+  components: {
+    BlockImage,
+    BlockTittle,
+    BlockText,
+    BlockSubtittle
+
+  },
   data () {
     return {
       textNews: '',
@@ -89,8 +102,8 @@ export default {
 
    },
    placeholderInput (el) {
-       if (el === "tittle") {
-         return "Введите заголовок"
+    if (el === "tittle") {
+      return "Введите заголовок"
      } else 
      if (el === "subtittle") {
        return "Введите подзаголовок"
@@ -105,21 +118,6 @@ export default {
 }
 </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <style scoped>
 .container {
   width: 400px;
@@ -128,5 +126,7 @@ export default {
 li {
   list-style: none;
 }
+
+
 
 </style>
